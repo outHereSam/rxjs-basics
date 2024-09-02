@@ -1,4 +1,4 @@
-import { of, from, interval, take } from "rxjs";
+import { of, from, interval, take, concat } from "rxjs";
 
 // Task 1: Creating and Subscribing to an Observable with of:
 const numObservable = of(1, 2, 3, 4, 5);
@@ -26,5 +26,15 @@ observable.subscribe({
     console.log(
       `Emitted value: ${value}, Timestamp: ${new Date().toISOString()}`
     ),
+  complete: () => console.log("Observable completed"),
+});
+
+// Task 4: Combining Observables
+const numbersObservable = of(2, 4, 6, 8);
+const arrayObservable = from([1, 3, 5, 7]);
+const combinedObservable = concat(numbersObservable, arrayObservable);
+
+combinedObservable.subscribe({
+  next: (value) => console.log("Emitted value:", value),
   complete: () => console.log("Observable completed"),
 });
